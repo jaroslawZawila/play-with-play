@@ -2,8 +2,6 @@ import sbt.Keys._
 import sbt.{Project, _}
 
 object TestingInfo {
-  private val worldPayServiceKeyProperty = "-Dworldpay.servicekey=T_S_502ae17b-9fe9-4e22-b493-d44fad248d61"
-  private val worldPayClientKeyProperty = "-Dworldpay.clientkey=T_C_d1895cee-d07d-49a6-9311-8482e2db9592"
 
   private val settings = Seq(
     fork in Test := true,
@@ -13,33 +11,15 @@ object TestingInfo {
     testOptions in ITDocker := Seq(Tests.Filter(itDockerFilter)),
 
     fork in run := true,
-    javaOptions in run += s"-Dconfig.file=${Option(System.getProperty("config.file")).getOrElse("src/main/resources/application.conf")}",
-    javaOptions in run += s"-Dlogback.configurationFile=${Option(System.getProperty("logback.configurationFile")).getOrElse("src/main/resources/logback.xml")}",
-    javaOptions in run += "-Dmetrics.cloudWatch.enabled=false",
-    javaOptions in run += "-Dmetrics.log.enabled=false",
-    javaOptions in run += worldPayServiceKeyProperty,
-    javaOptions in run += worldPayClientKeyProperty,
+    javaOptions in run += s"-Dconfig.file=${Option(System.getProperty("config.file")).getOrElse("conf/application.conf")}",
+    javaOptions in run += s"-Dlogback.configurationFile=${Option(System.getProperty("logback.configurationFile")).getOrElse("conf/logback.xml")}",
 
-    javaOptions in IT += "-Dconfig.file=src/main/resources/env/uat/application.conf",
-    javaOptions in IT += "-Dmetrics.cloudWatch.enabled=false",
-    javaOptions in IT += worldPayServiceKeyProperty,
-    javaOptions in IT += worldPayClientKeyProperty,
+    javaOptions in IT += "-Dconfig.file=conf/uat/application.conf",
 
-    javaOptions in ITLocal += "-Dconfig.file=src/main/resources/env/uat/application.conf",
-    javaOptions in ITLocal += "-Dlogback.configurationFile=src/main/resources/logback.xml",
-    javaOptions in ITLocal += "-Dservice.testport=8080",
-    javaOptions in ITLocal += "-Dservice.baseurl=localhost",
-    javaOptions in ITLocal += "-Dmetrics.cloudWatch.enabled=false",
-    javaOptions in ITLocal += worldPayServiceKeyProperty,
-    javaOptions in ITLocal += worldPayClientKeyProperty,
+    javaOptions in ITLocal += "-Dconfig.file=conf/uat/application.conf",
+    javaOptions in ITLocal += "-Dlogback.configurationFile=conf/logback.xml",
 
-    javaOptions in ITDocker += "-Dconfig.file=src/main/resources/env/uat/application.conf",
-    javaOptions in ITDocker += "-Dservice.testport=8080",
-    javaOptions in ITDocker += "-Dkafka.bootstrapServer=localhost:9092",
-    javaOptions in ITDocker += "-Dservice.baseurl=localhost",
-    javaOptions in ITDocker += "-Dmetrics.cloudWatch.enabled=false",
-    javaOptions in ITDocker += worldPayServiceKeyProperty,
-    javaOptions in ITDocker += worldPayClientKeyProperty
+    javaOptions in ITDocker += "-Dconfig.file=conf/uat/application.conf",
 )
 
   lazy val IT = config("itUat") extend(Test)
