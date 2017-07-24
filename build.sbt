@@ -3,10 +3,6 @@ import ReleaseProcess._
 import BuildInfo._
 import TestingInfo._
 
-val originalJvmOptions = sys.process.javaVmArguments.filter(
-  a => Seq("-Xmx", "-Xms", "-XX").exists(a.startsWith)
-)
-
 val baseSettings = Seq(
   scalaVersion := "2.11.8",
   resolvers += "DL Bintray Monsanto Repository Manager" at "https://dl.bintray.com/monsanto/maven",
@@ -29,7 +25,6 @@ val baseSettings = Seq(
     "-Xfatal-warnings"
   ),
   watchSources ~= { _.filterNot(f => f.getName.endsWith(".swp") || f.getName.endsWith(".swo") || f.isDirectory) },
-  javaOptions ++= originalJvmOptions,
   ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) },
   shellPrompt := { state =>
     val branch = if(file(".git").exists){
