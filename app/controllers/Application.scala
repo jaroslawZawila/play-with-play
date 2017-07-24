@@ -1,11 +1,9 @@
 package controllers
 
-import kamon.Kamon
-import play.api._
-import play.api.mvc._
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
 import com.ovoenergy.build.BuildInfo
+import kamon.Kamon
+import play.api.libs.json._
+import play.api.mvc._
 
 final case class HealthcheckResponse(name: String, version: String, isHealthy: Boolean, dependencies: Map[String, Boolean])
 
