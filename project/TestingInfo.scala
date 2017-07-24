@@ -19,7 +19,7 @@ object TestingInfo {
     javaOptions in ITLocal += "-Dconfig.file=conf/uat/application.conf",
     javaOptions in ITLocal += "-Dlogback.configurationFile=conf/logback.xml",
 
-    javaOptions in ITDocker += "-Dconfig.file=conf/uat/application.conf",
+    javaOptions in ITDocker += "-Dconfig.file=conf/uat/application.conf"
 )
 
   lazy val IT = config("itUat") extend(Test)
