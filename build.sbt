@@ -7,10 +7,14 @@ val baseSettings = Seq(
   scalaVersion := "2.11.8",
   resolvers += "DL Bintray Monsanto Repository Manager" at "https://dl.bintray.com/monsanto/maven",
   resolvers += "Mvn repository" at "https://mvnrepository.com/artifact/",
-  organization := "com.ovoenergy",
+  resolvers ++= Seq(Opts.resolver.sonatypeReleases),
+
+  organization := "com.test",
+
   parallelExecution in Test := false,
   fork in Test := true,
   fork in run := false,
+
   scalacOptions ++= (
     "-deprecation" ::
     "-unchecked" ::
@@ -24,15 +28,12 @@ val baseSettings = Seq(
     "-Ywarn-unused-import",
     "-Xfatal-warnings"
   ),
-  watchSources ~= { _.filterNot(f => f.getName.endsWith(".swp") || f.getName.endsWith(".swo") || f.isDirectory) },
-  ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) },
   shellPrompt := { state =>
     val branch = if(file(".git").exists){
       "git branch".lines_!.find{_.head == '*'}.map{_.drop(1)}.getOrElse("")
     }else ""
     Project.extract(state).currentRef.project + branch + " > "
-  },
-  resolvers ++= Seq(Opts.resolver.sonatypeReleases)
+  }
 )
 
 lazy val root = Project(
