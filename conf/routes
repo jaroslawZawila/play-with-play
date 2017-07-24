@@ -5,4 +5,4 @@
 # Home page
 GET     /ping                           controllers.Application.ping
 GET     /healthcheck                    controllers.Application.healthcheck
-GET     /metrics			controllers.MetricsController.index
+GET     /metrics			            controllers.MetricsController.index

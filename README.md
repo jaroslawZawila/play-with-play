@@ -6,3 +6,14 @@ Problems:
 2. Metrics does not work
 
 3. Kamon does not start properly
+
+Suggestion:
+
+``` 
+move to influxDB instead of Prometheous
+```
+
+```
+Downgrade to Play 2.5 ??? 
+```
+
