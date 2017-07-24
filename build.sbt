@@ -6,7 +6,7 @@ import TestingInfo._
 val baseSettings = Seq(
   scalaVersion := "2.11.8",
   resolvers += "DL Bintray Monsanto Repository Manager" at "https://dl.bintray.com/monsanto/maven",
-  resolvers += "Some" at "https://mvnrepository.com/artifact/",
+  resolvers += "Mvn repository" at "https://mvnrepository.com/artifact/",
   organization := "com.ovoenergy",
   parallelExecution in Test := false,
   fork in Test := true,
