@@ -43,12 +43,12 @@ lazy val root = Project(
 ).settings(
   libraryDependencies ++= Seq(
     guice,
-    "com.typesafe" % "config" % "1.3.1",
-    "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.0" % "test",
-    "io.kamon" %% "kamon-core" % "0.6.7",
-    "io.kamon" % "kamon-play-2.6_2.11" % "0.6.8",
-    "com.monsanto.arch" %% "kamon-prometheus" % "0.2.0",
-    "io.prometheus" % "simpleclient_common" % "0.0.20"
+    "com.typesafe"            % "config"              % "1.3.1",
+    "org.scalatestplus.play"  %% "scalatestplus-play" % "1.5.0" % "test",
+    "io.kamon"                %% "kamon-core"         % "0.6.7",
+    "io.kamon"                % "kamon-play-2.6_2.11" % "0.6.8",
+    "com.monsanto.arch"       %% "kamon-prometheus"   % "0.2.0",
+    "io.prometheus"           % "simpleclient_common" % "0.0.20"
   ).map(
   _.exclude("org.slf4j", "slf4j-log4j12")
    .exclude("javax.jms", "jms")
@@ -56,6 +56,7 @@ lazy val root = Project(
    .exclude("com.sun.jmx", "jmxri")
    .exclude("org.slf4j", "slf4j-api")
    .exclude("ch.qos.logback", "logback-classic")),
+
   libraryDependencies ++= Seq(
     "ch.qos.logback" % "logback-classic" % "1.1.7",
     "com.typesafe.akka" %% "akka-slf4j" % "2.4.10",
