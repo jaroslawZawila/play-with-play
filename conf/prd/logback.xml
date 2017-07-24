@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.out</target>
+        <encoder>
+            <pattern>%date{ISO8601} %-5level[%thread] %logger{0} %X{} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="akka.event.slf4j.Slf4jLogger" level="WARN" />
+    <logger name="org.apache.kafka" level="WARN" />
+    <logger name="akka.actor" level="WARN" />
+    <logger name="cakesolutions.kafka" level="WARN" />
+    <appender name="GELF UDP APPENDER" class="me.moocar.logbackgelf.GelfUDPAppender">
+        <remoteHost>graylog.prd.mon.ovotech.org.uk</remoteHost>
+        <port>12201</port>
+        <encoder class="me.moocar.logbackgelf.GZIPEncoder">
+            <layout class="me.moocar.logbackgelf.GelfLayout">
+                <staticAdditionalField>service:play-with-paly</staticAdditionalField>
+                <host>${HOSTNAME}</host>
+                <useThreadName>true</useThreadName>
+                <includeFullMDC>true</includeFullMDC>
+            </layout>
+        </encoder>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="GELF UDP APPENDER" />
+    </root>
+</configuration>

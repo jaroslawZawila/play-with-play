@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.out</target>
+        <encoder>
+            <pattern>%date{ISO8601} %-5level[%thread] %logger{0} %X{} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="akka.event.slf4j.Slf4jLogger" level="WARN" />
+    <logger name="org.apache.kafka" level="WARN" />
+    <logger name="akka.actor" level="WARN" />
+    <logger name="cakesolutions.kafka" level="WARN" />
+
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

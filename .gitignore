@@ -1,0 +1,11 @@
+.classpath
+.project
+.settings
+target
+.DS_Store
+*.class
+*.jar
+*.swp
+/logs
+.idea
+terraform/
