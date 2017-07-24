@@ -28,18 +28,7 @@ object DockerPackaging {
     bashScriptExtraDefines += """addJava "-Dlogback.configurationFile=${app_home}/../conf/${environment}/logback.xml"""",
     bashScriptExtraDefines += """addJava "-Xms256M"""",
     bashScriptExtraDefines += """addJava "-Xmx1536M"""",
-    bashScriptExtraDefines += s"export SERVICE_NAME=$serviceName",
-    bashScriptExtraDefines += """if [ -n "$SECRETS" ] && [ -n "$environment" ]; then
-                                |  baseEnv="$SERVICE_NAME"."$environment".
-                                |  items=$(credstash -r eu-west-1 get $baseEnv'*' | jq 'to_entries | .[]' -r)
-                                |  keys=$(echo $items | jq .key -r)
-                                |  for tkey in $keys
-                                |  do
-                                |  	key=$(echo ${tkey//$baseEnv/} | tr . _)
-                                |    export $key=$(echo $items | jq 'select(.key=="'$tkey'") | .value' -r)
-                                |  done
-                                |fi""".stripMargin
-
+    bashScriptExtraDefines += s"export SERVICE_NAME=$serviceName"
   )
 
   implicit class DockerProject(project: Project) {

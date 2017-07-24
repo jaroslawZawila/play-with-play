@@ -14,6 +14,7 @@ val baseSettings = Seq(
   organization := "com.ovoenergy",
   parallelExecution in Test := false,
   fork in Test := true,
+  fork in run := false,
   scalacOptions ++= (
     "-deprecation" ::
     "-unchecked" ::
@@ -45,6 +46,7 @@ lazy val root = Project(
   baseSettings: _*
 ).settings(
   libraryDependencies ++= Seq(
+    guice,
     "com.typesafe" % "config" % "1.3.1",
     "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.0" % "test",
     "io.kamon" %% "kamon-core" % "0.6.7",
