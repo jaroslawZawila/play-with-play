@@ -18,7 +18,8 @@ object Dependencies {
   )
 
   val testDependecies = Seq(
-    "org.scalatestplus.play"  %% "scalatestplus-play" % "1.5.0" % "test"
+    "org.scalatestplus.play"  %% "scalatestplus-play" % "3.0.0" % "test"
+
   )
 
   val dependecies = (projectDependencies ++ testDependecies).map(

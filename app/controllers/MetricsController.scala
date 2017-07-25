@@ -1,5 +1,7 @@
 package controllers
 
+import javax.inject.{Inject, Singleton}
+
 import akka.util.ByteString
 import play.api.http.HttpEntity
 import play.api.mvc._
@@ -10,8 +12,8 @@ import com.monsanto.arch.kamon.prometheus.metric.TextFormat
 
 import scala.concurrent.duration._
 
-
-class MetricsController extends Controller {
+@Singleton
+class MetricsController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   def index = Action async {
 
