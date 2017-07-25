@@ -9,7 +9,7 @@ import play.api.mvc._
 final case class HealthcheckResponse(name: String, version: String, isHealthy: Boolean, dependencies: Map[String, Boolean])
 
 @Singleton
-class Application @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class Healthcheck @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   def healthcheck = Action {
     val hcr = HealthcheckResponse("play-with-paly", BuildInfo.version, true, Map())

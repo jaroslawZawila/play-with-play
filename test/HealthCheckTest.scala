@@ -1,13 +1,13 @@
 import org.scalatestplus.play._
 
-import controllers.Application
+import controllers.Healthcheck
 import play.api.test._
 import play.api.test.Helpers._
 import play.api.libs.json.{JsValue, JsObject}
 
 class HealthCheckSpec extends PlaySpec {
 
-  lazy val app: Application = new Application
+  lazy val app: Healthcheck = new Healthcheck
 
   "The /healthcheck endpoint" must {
     "say everything's fine" in {
