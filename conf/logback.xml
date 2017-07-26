@@ -12,7 +12,7 @@
     <logger name="akka.actor" level="WARN" />
     <logger name="cakesolutions.kafka" level="WARN" />
 
-    <root level="DEBUG">
+    <root level="WARN">
         <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>
