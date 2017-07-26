@@ -18,7 +18,8 @@ object Dependencies {
   )
 
   val testDependecies = Seq(
-    "org.scalatestplus.play"  %% "scalatestplus-play" % "3.0.0" % "test"
+    "org.scalatestplus.play"  %% "scalatestplus-play" % "3.0.0"   % "test",
+    "org.mockito"             % "mockito-core"        % "2.8.47"  % "test"
 
   )
 
