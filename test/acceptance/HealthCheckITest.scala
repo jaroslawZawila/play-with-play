@@ -6,7 +6,7 @@ import play.api.libs.json.JsValue
 import play.api.test.Helpers._
 import play.api.test._
 
-class HealthcheckITest extends PlaySpec with GuiceOneServerPerSuite {
+class HealthCheckITest extends PlaySpec with GuiceOneServerPerSuite {
 
   "Ping" must {
     "returns pong" in {
@@ -19,7 +19,7 @@ class HealthcheckITest extends PlaySpec with GuiceOneServerPerSuite {
     }
   }
 
-  "Healthcheck" must {
+  "HealthCheck" must {
     "be healthy" in {
       val response = await(WsTestClient.withClient(client => {
         client.url(s"http://localhost:$port/healthcheck").execute()

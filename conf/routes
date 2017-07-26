@@ -3,6 +3,6 @@
 # ~~~~
 
 # Home page
-GET     /ping                           controllers.Healthcheck.ping
-GET     /healthcheck                    controllers.Healthcheck.healthcheck
+GET     /ping                           controllers.HealthCheck.ping
+GET     /healthcheck                    controllers.HealthCheck.healthCheck
 GET     /metrics			            controllers.MetricsController.index
