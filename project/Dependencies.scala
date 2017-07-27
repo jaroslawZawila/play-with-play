@@ -14,7 +14,8 @@ object Dependencies {
     "ch.qos.logback"          % "logback-classic"     % "1.1.7",
     "com.typesafe.akka"       %% "akka-slf4j"         % "2.4.10",
     "me.moocar"               % "logback-gelf"        % "0.3",
-    "org.slf4j"               % "slf4j-api"           % "1.7.21"
+    "org.slf4j"               % "slf4j-api"           % "1.7.21",
+    "com.github.seratch"      %% "awscala"            % "0.6.0"
   )
 
   val testDependecies = Seq(
