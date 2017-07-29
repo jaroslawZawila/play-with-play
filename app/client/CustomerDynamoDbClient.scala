@@ -1,37 +1,30 @@
 package client
 
 import awscala._
+import com.google.inject.{Inject, Singleton}
 import dynamodbv2._
-import model.Id.Id
-import play.api.libs.json.{JsValue, Json}
+import model.Customer.{CustomerSave}
+import model.Id
 
-object CustomerDynamoDbClient {
+@Singleton
+class CustomerDynamoDbClient @Inject() (dynamoClient: DynamoDB) {
 
-  implicit val dynamoDB = DynamoDB("AKIAIDGUHWBW3U3ZXOVQ","8RwXUKOpIG27DGgaxobIJk2fcKSb9JELQ3MRXK4B")(Region.EU_WEST_1)
+  private implicit val client: DynamoDB = dynamoClient
 
-    val customerTable: TableMeta = dynamoDB.createTable(
-      name = "customers",
-      hashPK = "Id" -> AttributeType.String,
-      rangePK = "Id2" -> AttributeType.Number,
-      otherAttributes = Seq("Id2" -> AttributeType.String),
-      indexes = Seq(LocalSecondaryIndex(
-        name = "id2-index",
-        keySchema = Seq(KeySchema("Id", KeyType.Hash), KeySchema("Id2", KeyType.Range)),
-        projection = Projection(ProjectionType.Include, Seq("Id2"))
-      ))
+  private lazy val customers = client.table("customers").get
+
+  def save(customer: CustomerSave): Id = {
+    val id = Id.random
+    println(customerToSeq(customer))
+    customers.putItem(id.id, customerToSeq(customer): _*)
+    id
+  }
+
+  private def customerToSeq(customer: CustomerSave): Seq[Tuple2[String, Any]] = {
+    Seq(
+      ("firstName" -> customer.firstname),
+      ("surname" -> customer.surname)
     )
+  }
 
-  val table: Table = dynamoDB.table("customers").get
-
-  table.put("a", "firstName" -> "jarek", "surname" -> "zawila")
-  table.put("b", "firstName" -> "jarek2", "surname" -> "zawila2")
-  table.put("c", "firstName" -> "jarek3", "surname" -> "zawila3")
-  table.putItem("d",  Json.toJson(Id("1")).as[Map[String, JsValue]])
-
-  val x: Map[String, JsValue] = Json.toJson(Id("1")).as[Map[String, JsValue]]
-  val y = x.seq.map { (x) => (x._1, (x._1, x._2)) }   .values
-  table.rangePK
-  table.put("d", y)
-
-  table.destroy()
 }

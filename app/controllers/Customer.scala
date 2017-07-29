@@ -2,7 +2,7 @@ package controllers
 
 import com.google.inject.{Inject, Singleton}
 import model.Customer.CustomerSave
-import model.Id.Id
+import model.Id
 import play.api.mvc.{AbstractController, BodyParser, ControllerComponents}
 import service.CustomerService
 

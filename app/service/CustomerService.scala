@@ -2,12 +2,13 @@ package service
 
 import javax.inject.Inject
 
+import client.CustomerDynamoDbClient
 import com.google.inject.Singleton
-import model.Customer.Customer
-import model.Id.Id
+import model.Customer.CustomerSave
+import model.Id
 
 @Singleton
-class CustomerService @Inject()() {
+class CustomerService @Inject()(customerDynamoDbClient: CustomerDynamoDbClient) {
 
-  def perssist(customer: Customer): Id = Id("1")
+  def perssist(customer: CustomerSave): Id = customerDynamoDbClient.save(customer)
 }
