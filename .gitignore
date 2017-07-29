@@ -8,5 +8,6 @@ target
 *.swp
 /logs
 .idea
-terraform/
+terraform/prd
+terraform/uat
 target/
