@@ -13,7 +13,4 @@ Suggestion:
 move to influxDB instead of Prometheous
 ```
 
-```
-Downgrade to Play 2.5 ??? 
-```
 
