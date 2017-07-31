@@ -27,4 +27,6 @@ class CustomerDynamoDbClient @Inject() (dynamoClient: DynamoDB) {
     )
   }
 
+  //TEST
+
 }
