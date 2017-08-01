@@ -1,0 +1,99 @@
+resource_types:
+- name: pull-request
+  type: docker-image
+  source:
+    repository: jtarchie/pr
+
+- name: pull-request-test
+  type: docker-image
+  source:
+    repository: jtarchie/pr
+    tag: test
+
+resources:
+- name: source-code
+  type: git
+  source:
+    uri: git@github.com:jaroslawZawila/play-with-play.git
+    branch: master
+    private_key: ((private-repo-key))
+    disable_ci_skip: true
+- name: git-pull-requests
+  type: pull-request
+  source:
+    access_token: be3614fd66d79b4436f8ed58c290b2c9a018b68a
+    private_key: ((private-repo-key))
+    repo: jaroslawZawila/play-with-play
+    base: master
+#- name: merge-pull-requests
+#  type: pull-request-test
+#  source:
+#    access_token: be3614fd66d79b4436f8ed58c290b2c9a018b68a
+#    private_key: ((private-repo-key))
+#    base: test-merge
+#    repo: jaroslawZawila/play-with-play
+#- name: git-pr
+#  type: git
+#  source:
+#    uri: git@github.com:jaroslawZawila/play-with-play.git
+#    branch: master
+#    private_key: ((private-repo-key))
+
+jobs:
+- name: play-with-play
+  plan:
+  - get: source-code
+    trigger: true
+  - task: run-test
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: hseeberger/scala-sbt}
+      run:
+        path: sbt
+        args: [test]
+
+- name: pull-request
+  plan:
+  - get: git-pull-requests
+    trigger: true
+    version: every
+  - task: rspec
+    privileged: true
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: hseeberger/scala-sbt
+      inputs:
+        - name: git-pull-requests
+      run:
+        path: sbt
+        args: ["test"]
+    on_success:
+      put: git-pull-requests
+      params:
+        path: git-pull-requests
+        status: success
+    on_failure:
+      put: git-pull-requests
+      params:
+        path: git-pull-requests
+        status: failure
+
+#- name: test-pr-merge
+#  plan:
+#    - get: git-pr
+#      passed: [ 'pull-request' ]
+#      trigger: true
+#    - get: merge-pull-requests
+#      trigger: true
+#    - put: merge-pull-requests
+#      params:
+#        path: merge-pull-requests
+#        status: success
+#        merge:
+#          method: merge
+#          commit_msg: merge-pull-requests/README.md
