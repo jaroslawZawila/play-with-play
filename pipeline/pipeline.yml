@@ -46,6 +46,7 @@ jobs:
     trigger: true
   - task: run-test
     config:
+
       inputs:
       - name: source-code
         path: go/path/
@@ -67,6 +68,9 @@ jobs:
     privileged: true
     config:
       platform: linux
+      input:
+        - name: git-pull-requests
+          path: go/
       image_resource:
         type: docker-image
         source:
@@ -75,6 +79,7 @@ jobs:
         - name: git-pull-requests
       run:
         path: sbt
+        dir: go/
         args: ["clean", "test"]
     on_success:
       put: git-pull-requests

@@ -12,5 +12,3 @@ Suggestion:
 ``` 
 move to influxDB instead of Prometheous
 ```
-
-
