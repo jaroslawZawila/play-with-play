@@ -21,7 +21,7 @@ resources:
 - name: git-pull-requests
   type: pull-request
   source:
-    access_token: be3614fd66d79b4436f8ed58c290b2c9a018b68a
+    access_token:
     private_key: ((private-repo-key))
     repo: jaroslawZawila/play-with-play
     base: master
@@ -46,13 +46,18 @@ jobs:
     trigger: true
   - task: run-test
     config:
+
+      inputs:
+      - name: source-code
+        path: go/path/
       platform: linux
       image_resource:
         type: docker-image
         source: {repository: hseeberger/scala-sbt}
       run:
         path: sbt
-        args: [test]
+        dir: go/path/
+        args: [test, "-v"]
 
 - name: pull-request
   plan:
@@ -63,6 +68,9 @@ jobs:
     privileged: true
     config:
       platform: linux
+      input:
+        - name: git-pull-requests
+          path: go/
       image_resource:
         type: docker-image
         source:
@@ -71,7 +79,8 @@ jobs:
         - name: git-pull-requests
       run:
         path: sbt
-        args: ["test"]
+        dir: go/
+        args: ["clean", "test"]
     on_success:
       put: git-pull-requests
       params:
