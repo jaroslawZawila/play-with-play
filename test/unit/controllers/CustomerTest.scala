@@ -29,7 +29,7 @@ class CustomerTest extends PlaySpec with MockitoSugar{
       val controller = new Customer(stubControllerComponents(), mockCustomerService)
       val result = controller.save().apply(FakeRequest().withHeaders(HeaderNames.CONTENT_TYPE -> JSON))
 
-      status(result) must be(BAD_REQUEST)
+      status(result) must be(OK)
     }
 
     "returns id when customer saved" in {
